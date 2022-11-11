@@ -1,6 +1,6 @@
 {
-  "name": "github-app-token",
-  "version": "1.7.0",
+  "name": "github-app-token-gcp-kms",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "files": [
@@ -15,15 +15,13 @@
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@actions/github": "^5.1.1",
-    "@octokit/auth-app": "^4.0.7",
-    "@octokit/request": "^6.2.2",
-    "ensure-error": "^4.0.0",
-    "is-base64": "^1.1.0"
+    "@google-cloud/kms": "3.1.0",
+    "@octokit/rest": "19.0.5",
+    "ensure-error": "^4.0.0"
   },
   "devDependencies": {
     "@types/error-cause": "^1.0.1",
-    "@types/is-base64": "^1.1.1",
+    "@types/google-cloud__kms": "^1.5.4",
     "@types/node": "^16.11.26",
     "@vercel/ncc": "^0.34.0",
     "eslint-config-prettier": "^8.5.0",

@@ -1,11 +1,20 @@
-import { Buffer } from "node:buffer";
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import ensureError from "ensure-error";
-import isBase64 from "is-base64";
-import { fetchInstallationToken } from "./fetch-installation-token.js";
+import {
+  fetchInstallationToken,
+  getAppJwt,
+} from "./fetch-installation-token.js";
 
 const run = async () => {
   try {
+    const gcpKmsKeyRing = getInput("gcp_kms_key_ring", { required: true });
+    const gcpKmsKeyName = getInput("gcp_kms_key_name", { required: true });
+    const gcpKmsKeyVersion = getInput("gcp_kms_key_version", {
+      required: true,
+    });
+    const gcpKmsLocation = getInput("gcp_kms_location", { required: true });
+    const gcpKmsProjectId = getInput("gcp_kms_project_id", { required: true });
+
     const appId = getInput("app_id", { required: true });
 
     const installationIdInput = getInput("installation_id");
@@ -18,24 +27,31 @@ const run = async () => {
       ? (JSON.parse(permissionsInput) as Record<string, string>)
       : undefined;
 
-    const privateKeyInput = getInput("private_key", { required: true });
-    const privateKey = isBase64(privateKeyInput)
-      ? Buffer.from(privateKeyInput, "base64").toString("utf8")
-      : privateKeyInput;
-
-    const repositoryInput = getInput("repository", { required: true });
+    const repositoryInput = getInput("repository");
     const [owner, repo] = repositoryInput.split("/");
 
     const githubApiUrlInput = getInput("github_api_url", { required: true });
     const githubApiUrl = new URL(githubApiUrlInput);
 
+    if (!installationId && !repositoryInput) {
+      throw new Error("Either installation_id or repository must be specified");
+    }
+
+    const jwt = await getAppJwt({
+      gcpKmsKeyName,
+      gcpKmsKeyRing,
+      gcpKmsKeyVersion,
+      gcpKmsLocation,
+      gcpKmsProjectId,
+      githubAppId: appId,
+    });
+
     const installationToken = await fetchInstallationToken({
-      appId,
       githubApiUrl,
       installationId,
+      jwt,
       owner,
       permissions,
-      privateKey,
       repo,
     });
 
