@@ -7,9 +7,10 @@
     "action.yml",
     "dist"
   ],
+  "main": "lib/index.js",
   "scripts": {
-    "prebuild": "tsc --build",
-    "build": "ncc build src/index.ts --minify  --target es2021 --v8-cache",
+    "build": "tsc",
+    "package": "ncc build --license licenses.txt",
     "prettier": "prettier --ignore-path .gitignore \"./**/*.{cjs,js,json,md,ts,yml}\"",
     "xo": "xo"
   },
