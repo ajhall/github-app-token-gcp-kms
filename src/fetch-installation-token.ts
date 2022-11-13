@@ -2,7 +2,6 @@ import { Buffer } from "node:buffer";
 import { createHash } from "node:crypto";
 import { KeyManagementServiceClient } from "@google-cloud/kms";
 import { Octokit } from "@octokit/rest";
-import ensureError from "ensure-error";
 
 export const fetchInstallationToken = async ({
   githubApiUrl,
@@ -36,7 +35,7 @@ export const fetchInstallationToken = async ({
     } catch (error: unknown) {
       throw new Error(
         "Could not get repo installation. Is the app installed on this repo?",
-        { cause: ensureError(error) },
+        { cause: error },
       );
     }
   }
@@ -50,7 +49,7 @@ export const fetchInstallationToken = async ({
     return installation.token;
   } catch (error: unknown) {
     throw new Error("Could not create installation access token.", {
-      cause: ensureError(error),
+      cause: error,
     });
   }
 };

@@ -1,5 +1,4 @@
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
-import ensureError from "ensure-error";
 import {
   fetchInstallationToken,
   getAppJwt,
@@ -59,8 +58,7 @@ const run = async () => {
     setOutput("token", installationToken);
     info("Token generated successfully!");
   } catch (_error: unknown) {
-    const error = ensureError(_error);
-    setFailed(error);
+    setFailed(_error as Error);
   }
 };
 

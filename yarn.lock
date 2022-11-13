@@ -1322,11 +1322,6 @@
     "graceful-fs" "^4.2.4"
     "tapable" "^2.2.0"
 
-"ensure-error@^4.0.0":
-  "integrity" "sha512-7Xenn3+R6tp2UqAbH9Jqs6QCSABQok+1VAhaPaF0jjm3iuhVHCblfBh18nYtpm3K9/V4Jpxz1JIqFZyrjstBtw=="
-  "resolved" "https://registry.npmjs.org/ensure-error/-/ensure-error-4.0.0.tgz"
-  "version" "4.0.0"
-
 "entities@~2.1.0":
   "integrity" "sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w=="
   "resolved" "https://registry.npmjs.org/entities/-/entities-2.1.0.tgz"

@@ -2,7 +2,6 @@
   "name": "github-app-token-gcp-kms",
   "version": "1.0.0",
   "license": "MIT",
-  "type": "module",
   "files": [
     "action.yml",
     "dist"
@@ -10,15 +9,14 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "package": "ncc build --license licenses.txt",
+    "package": "ncc build --minify --license licenses.txt",
     "prettier": "prettier --ignore-path .gitignore \"./**/*.{cjs,js,json,md,ts,yml}\"",
     "xo": "xo"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@google-cloud/kms": "3.1.0",
-    "@octokit/rest": "19.0.5",
-    "ensure-error": "^4.0.0"
+    "@octokit/rest": "19.0.5"
   },
   "devDependencies": {
     "@types/error-cause": "^1.0.1",
