@@ -1,0 +1,30 @@
+name: Get token
+on: workflow_dispatch
+
+jobs:
+  get-token:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: 'actions/checkout@v3'
+
+    - name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+    - name: Generate token
+      id: generate_token
+      uses: ajhall/github-app-token-gcp-kms@v1
+      with:
+        app_id: "260767"
+        gcp_kms_key_ring: andy-hall-sandbox-kms
+        gcp_kms_key_name: commit-status-reader
+        gcp_kms_key_version: "4"
+        gcp_kms_location: us-east1
+        gcp_kms_project_id: andy-hall-sandbox
+
+    - name: Use token
+      env:
+        TOKEN: ${{ steps.generate_token.outputs.token }}
+      run: |
+        echo "The generated token is masked: ${TOKEN}"
