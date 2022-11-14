@@ -1,5 +1,7 @@
 name: Get token
-on: workflow_dispatch
+on:
+- workflow_dispatch
+- push
 
 jobs:
   get-token:
